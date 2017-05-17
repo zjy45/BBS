@@ -1,0 +1,83 @@
+.status {
+    min-height: 48px;
+    
+    padding: 10px;
+    
+    text-align: left;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.status_avatar {
+    
+    width: 48px;
+    height: 48px;
+    
+    display: block;
+    float: left;
+}
+
+.status_avatar .avatar {
+    
+    width: 48px;
+    height: 48px;
+    
+}
+
+.status_main {
+    
+    margin: 0px 0px 0px 58px;
+    
+    font-size: 14px;
+    text-align: left;
+}
+
+.status_author {
+    font-weight: bold;
+    display: inline-block;
+}
+
+.status_time {
+    display: inline-block;
+    font-size: 11px;
+    color: #ccc;
+}
+
+.status_dot {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.status_content {
+    line-height: 150%;
+}
+
+.status_ops {
+    font-size: 11px;
+    line-height: 11px;
+    text-align: right;
+    color: #ccc;
+    margin-top: 5px;
+    visibility: visible;
+}
+
+.status:hover {
+    background-color: #fafafa;
+}
+
+.status:hover .status_ops {
+    color: #999;
+    visibility: visible;
+}
+
+.s_ops:link, .s_ops:active, .s_ops:visited {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.status:hover .s_ops:link {
+    color: #ccc;
+}
+
+.s_ops:hover {
+    text-decoration: underline;
+}

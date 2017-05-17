@@ -1,0 +1,145 @@
+<head>
+<title>{{ topic.title }} - BBS</title>
+</head>
+{% extends "topic/base.html" %}
+{% block content %}
+</div>
+</div>
+<!-- base.html需要两个</div> -->
+
+<div id="Main">
+    <div class="sep20"></div>
+
+    <div class="box" style="border-bottom: 0px;">
+        <div class="header">
+            <div class="fr">
+                <a href="{{url_for('.user', id=topic.user().id)}}">
+                    <img class="user-image"
+                    src={{ '/uploads/' + topic.user().user_image + '?v=3&amp;s=120' }}
+                    class="avatar" border="0" align="default"/>
+                </a>
+            </div>
+            <a href="{{url_for('.index')}}">BBC</a> <span class="chevron">&nbsp;›&nbsp;</span> <a href="/topic?board_id={{ topic.board().id }}">{{ topic.board().title }}</a>
+            <div class="sep10"></div>
+            <h1>{{ topic.title }}</h1>
+            &nbsp;
+            <small class="gray"><a href="{{url_for('.user', id=topic.user().id)}}">{{ topic.user().username }}</a> · {{topic.since_u()}} · {{ topic.views }} 次浏览</small>
+            {%if topic.user().id == u.id%}
+            <div class="fr">
+                <a  href="/topic/delete?id={{topic.id}}" class="no">删除</a>
+            </div>
+            {%endif%}
+        </div>
+
+
+        <div class="cell">
+
+            <div class="topic_content">
+                {{ topic.content }}
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="sep20"></div>
+
+
+    <div class="box">
+        <div class="cell">
+            <span class="gray">{{ topic.replies() | count }} 回复 &nbsp;
+                {% if topic.replies()[-1] != null  %}
+                <strong class="snow">|</strong> &nbsp;
+                    直到 {{topic.replies()[-1].local_u()}}
+                {% endif %}
+            </span>
+        </div>
+
+        {% for r in topic.replies() %}
+        <div class="cell">
+
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td width="48" valign="top" align="center">
+                        <a href="{{url_for('.user', id=(r.user().id))}}">
+                            <img class="user-image"
+                                src={{ '/uploads/' + r.user().user_image + '?v=3&amp;s=120' }}
+                                class="avatar" border="0" align="default"/>
+                        </a>
+                    </td>
+                    <td width="10" valign="top"></td>
+                    <td width="auto" valign="top" align="left">
+                        <div class="fr"> &nbsp; &nbsp; <span class="no">{{ loop.index }}楼</span></div>
+                        <div class="sep3"></div>
+                        <strong>
+                            <a href="{{url_for('.user', id=(r.user().id))}}" class="dark">
+                                {{ r.user().username }}
+                            </a>
+                        </strong>&nbsp; &nbsp;
+                        <span class="fade small">{{r.since_u()}}</span>
+                        <div class="sep5"></div>
+                        <div class="reply_content">{{ r.content }}</div>
+                        <div class="fr">
+                        {%if r.user().id == u.id%}
+                            <a  href="/reply/delete?id={{r.id}}" class="no">删除</a>
+                            <!-- <a  href="/reply/update?id={{r.id}}" class="no">修改</a> -->
+                        {%endif%}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+                {% endfor %}
+            </div>
+
+            <div class="sep20"></div>
+
+            <div class="box">
+                <div class="cell">
+                    <div class="fr">
+                        <a href="#" onclick="goTop()">
+                            <strong>↑</strong> 回到顶部
+                        </a>
+                    </div>
+                    添加一条新回复
+                </div>
+                <div class="cell">
+                    <form method="post" action="{{ url_for('reply.add') }}">
+                        <textarea name="content" maxlength="10000" class="mll" id="reply_content" style="overflow: hidden; word-wrap: break-word; resize: none; height: 112px;">
+                        </textarea>
+                        <div class="sep10"></div>
+                        <input type="hidden" name="topic_id" value="{{ topic.id }}">
+                        <input type="submit" value="回复" class="super normal button">
+                        <script type="text/javascript">
+                        $("#reply_content").on('input', function(e) {
+                            saveReplyDraft(357533, 227435);
+                        });
+
+                        var keyPressed = 0;
+
+                        $("#reply_content").keydown(function(e) {
+                            keyPressed = keyPressed + 1;
+
+                            if ((e.ctrlKey || e.metaKey) && e.which === 13) {
+                                e.preventDefault();
+                                $("#reply_content").parent().submit();
+                            }
+                        });
+                        </script>
+                    </form>
+                </div>
+                <div class="inner">
+                    <div class="fr">
+                        <a href="url_for('.index')">← BBS</a>
+                    </div>
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="sep20"></div>
+</div>
+
+
+{% endblock %}

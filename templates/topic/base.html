@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="../static/img/icon.png">
+    <meta name="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="Referrer" content="unsafe-url"/>
+    <meta content="True" name="HandheldFriendly"/>
+    <meta name="theme-color" content="#333344"/>
+
+    <meta name="detectify-verification" content="d0264f228155c7a1f72c3d91c17ce8fb"/>
+    <meta name="alexaVerifyID" content="OFc8dmwZo7ttU4UCnDh1rKDtLlY"/>
+    <meta name="baidu-site-verification" content="D00WizvYyr"/>
+    <meta name="msvalidate.01" content="D9B08FEA08E3DA402BF07ABAB61D77DE"/>
+    <meta property="wb:webmaster" content="f2f4cb229bda06a4"/>
+    <meta name="google-site-verification" content="LM_cJR94XJIqcYJeOCscGVMWdaRUvmyz6cVOqkFplaU"/>
+
+	<head>
+    {% if title %}
+        <title>{{ title }} - BBS</title>
+    {% else %}
+        <title>Welcome to BBS</title>
+    {% endif %}
+	</head>
+    <link rel="dns-prefetch" href="//static.v2ex.com"/>
+    <link rel="dns-prefetch" href="//cdn.v2ex.com"/>
+    <link rel="dns-prefetch" href="//cdn.v2ex.co"/>
+    <link rel="dns-prefetch" href="//i.v2ex.co"/>
+
+    <link rel="stylesheet" href="../static/css/index.css" media="screen" title="no title" charset="utf-8">
+
+
+    <script type="text/javascript" src="//v2ex.assets.uxengine.net/js/highlight/highlight.pack.js"></script>
+	<script src="../static/js/jquery.js?v=8fc25e27d42774aeae6edbc0a18b72aa" type="text/javascript"></script>
+	<script src="../static/js/jquery-ui.js?v=ba23883b51f5f372d28755e199785526" type="text/javascript"></script>
+	<script src="//v2ex.assets.uxengine.net/static/js/jquery.autosize.js?v=1.18.9" type="text/javascript"></script>
+    <script src="../static/js/lscache.min.js?v=bf403ab76d287d394375662defac76c3" type="text/javascript"></script>
+    <script src="../static/js/v2ex.js?v=d36f4bbec51ee88f7f8dfbb70e66ac66" type="text/javascript"></script>
+    <script src="../static/js/select2.min.js?v=3225a95b13ab51f570e2544751ee8320" type="text/javascript"></script>
+    <script src="../static/js/selectboxit.min.js?v=379ece65af74a99ef6cd7ca21f8beb6e" type="text/javascript"></script>
+
+    <script>
+	    $(function() {
+			protectTraffic();
+	        $( "#MyNodes" ).sortable();
+	        $( "#MyNodes" ).disableSelection();
+	        $( "#MyNodes" ).sortable({
+	            stop: function( event, ui ) {
+	                var sorted = $( "#MyNodes" ).sortable( "serialize", { key: "n" } );
+	                $.post('/my/nodes/sorted', { sorted : sorted }, function(data) {
+
+	                });
+	            }
+	        });
+	    });
+    </script>
+
+
+
+    <head>
+    	<link href="../static/css/select2.css?v=2621fe97ae1aabca8661d60000147412" rel="stylesheet" />
+    	<script src="../static/js/select2.min.js?v=3225a95b13ab51f570e2544751ee8320"></script>
+    	<link rel="stylesheet" href="../static/css/codemirror.css?v=95410923b46f2a7fa209e00c20100349" />
+    	<script src="../static/js/codemirror.js?v=a80ab51333c962dba95116cad4c9a9c9"></script>
+    	<script src="../static/js/markdown.js?v=d8c392cb2edd39e5e90fe533128ca138"></script>
+    	<style type="text/css">
+    	    .CodeMirror { font-family: 'Consolas', 'Panic Sans', 'DejaVu Sans Mono',
+    	                 'Bitstream Vera Sans Mono', 'Menlo', 'Microsoft Yahei', monospace; }
+            .user-image {
+                width: 48px;
+                height: 48px;
+            }
+    	</style>
+    	<script>
+    	var editor;
+
+    	var memberId = 227435;
+
+    	$(document).ready(function() {
+    	    $("#nodes").select2();
+
+
+
+    	    editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+    	        mode: "markdown",
+    	        lineNumbers: true,
+    	        lineWrapping: true,
+    	        indentUnit: 4
+    	    });
+
+    	    loadComposeDraft(memberId);
+
+    	    editor.on('change', function(cm, change) {
+    	        var text = cm.getValue();
+    	        var max = 20000;
+    	        var remaining = max - text.length;
+    	        var r = $("#content_remaining");
+    	        r.html(remaining);
+    	        saveComposeDraft(memberId);
+    	    });
+
+    	    $("#topic_title").keyup(function(e) {
+    	        var s = $("#topic_title");
+    	        var text = s.val()
+    	        var max = 120;
+    	        var remaining = max - text.length;
+    	        var r = $("#title_remaining");
+    	        r.html(remaining);
+    	        saveComposeDraft(memberId);
+    	    });
+
+    	    $("#nodes").on('change', function(e) {
+    	        saveComposeDraft(memberId);
+    	    });
+    	});
+
+    	function chooseNode(node) {
+    	    $("#nodes").select2("val", node);
+    	    saveComposeDraft(memberId);
+    	}
+    	</script>
+
+    </head>
+
+</head>
+<body>
+	<div id="Top">
+	    <div class="content">
+	        <div style="padding-top: 6px;">
+	            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+	                <tr>
+	                    <td width="110" align="left">
+							<a href={{url_for('.index')}} name="top" title="way to explore">
+	                        <img src="\static\img\BBS4.png" border="0" align="default"
+	                            alt="BBC" width="110" height="33"/>
+							</a>
+						</td>
+	                    <td width="auto" align="left">
+	                        <div id="Search">
+	                            <form action="https://www.google.com" onsubmit="return dispatch()" target="_blank">
+	                                <div style="width: 276px; height: 28px; background-size: 276px 28px; background-image: url('/static/img/qbar_light@2x.png'); background-repeat: no-repeat; display: inline-block;">
+	                                    <input type="text" maxlength="40" name="q" id="q" value=""/>
+									</div>
+	                            </form>
+	                        </div>
+	                    </td>
+	                    <td width="570" align="right" style="padding-top: 2px;">
+							<a href="{{url_for('.index')}}" class="top">首页</a>
+							&nbsp;&nbsp;&nbsp;
+							<a href="{{url_for('topic.profile')}}" class="top">{{u.username}}</a>
+						</td>
+	                </tr>
+	            </table>
+	        </div>
+	    </div>
+	</div>
+	<div id="Wrapper">
+    	<div class="content">
+
+	        <div id="Leftbar"></div>
+
+	        <div id="Rightbar">
+	            <div class="sep20"></div>
+
+	            <div class="box">
+
+				<div class="cell">
+				  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+				      <tbody><tr>
+				          <td width="48" valign="top">
+				              <a href="{{url_for('topic.profile')}}">
+				              <img class = 'user-image' src={{ '/uploads/' + u.user_image + '?v=3&amp;s=120' }} class="avatar" border="0" align="default" style="max-width: 48px; max-height: 48px;"></a></td>
+				          <td width="10" valign="top"></td>
+				          <td width="auto" align="left"><span class="bigger"><a href="{{url_for('topic.profile')}}">{{u.username|default("请登录")}}</a></span>
+
+				          </td>
+				      </tr>
+				  </tbody></table>
+				  <!-- <div class="sep10"></div> -->
+				  <!-- <table cellpadding="0" cellspacing="0" border="0" width="100%">
+				      <tbody><tr>
+				          <td width="33%" align="center"><a href="/my/nodes" class="dark" style="display: block;"><span class="bigger">0</span><div class="sep3"></div><span class="fade">节点收藏</span></a></td>
+				          <td width="34%" style="border-left: 1px solid rgba(100, 100, 100, 0.4); border-right: 1px solid rgba(100, 100, 100, 0.4);" align="center"><a href="/my/topics" class="dark" style="display: block;"><span class="bigger">0</span><div class="sep3"></div><span class="fade">主题收藏</span></a></td>
+				          <td width="33%" align="center"><a href="/my/following" class="dark" style="display: block;"><span class="bigger">0</span><div class="sep3"></div><span class="fade">特别关注</span></a></td>
+				      </tr>
+				  </tbody></table> -->
+				</div>
+				<!-- <div class="cell">
+				  <div style="width: 250px; background-color: #f0f0f0; height: 3px; display: inline-block; vertical-align: middle;">
+				      <div style="width: 13px; background-color: #ccc; height: 3px; display: inline-block;">
+				      </div>
+				  </div>
+				</div> -->
+
+				<div class="cell" style="padding: 5px;">
+				  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+				      <tbody>
+				          <tr>
+				              <td width="32">
+				                  <a href="{{url_for('.new')}}">
+				                    <img src="/static/img/flat_compose.png?v=7d21f0767aeba06f1dec21485cf5d2f1" width="32" border="0">
+				                  </a>
+				              </td>
+				              <td width="10"></td>
+				              <td width="auto" valign="middle" align="left"><a href="{{url_for('.new')}}">发布话题</a></td>
+				          </tr>
+				      </tbody>
+				  </table>
+				</div>
+
+	            <div class="sep20"></div>
+
+
+	            <!-- <div class="box" id="TopicsHot">
+	                <div class="cell"><span class="fade">今日热议主题</span></div>
+
+	                <div class="cell from_39820 hot_t_356574">
+	                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+	                        <tr>
+	                            <td width="24" valign="middle" align="center">
+	                                <a href="/member/hepin1989">
+										<img
+	                                        src="//v2ex.assets.uxengine.net/avatar/df1d/d8b2/39820_normal.png?m=1415176155"
+	                                        class="avatar" border="0" align="default"
+	                                        style="max-width: 24px; max-height: 24px;"/>
+									</a>
+	                            </td>
+	                            <td width="10"></td>
+	                            <td width="auto" valign="middle">
+					                <span class="item_hot_topic_title">
+					                	<a href="/t/356574">《Netty 实战》即将上市了</a>
+					                </span>
+	                            </td>
+	                        </tr>
+	                    </table>
+	                </div>
+
+	            </div> -->
+	            <!-- <div class="sep20"></div> -->
+
+
+			{% block content %}
+			{% endblock %}
+
+			<div class="c"></div>
+			<div class="sep20"></div>
+		</div>
+	</div>
+	<div id="Bottom">
+    <div class="content">
+        <div class="inner">
+            <div class="sep10"></div>
+            活着,就是为了改变世界
+            <div class="sep5"></div>
+            to live to change the world
+            <div class="sep20"></div>
+        </div>
+    </div>
+</div>
+
+	<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-11940834-2', 'v2ex.com');
+		  ga('send', 'pageview');
+
+	</script>
+
+
+	<script src="/static/js/jquery.textcomplete.min.js?v=43bfb325d9b6b784e680aa9eaef91925" type="text/javascript"></script>
+
+</body>
+</html>
