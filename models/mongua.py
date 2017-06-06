@@ -299,7 +299,6 @@ class Mongua(object):
         l[0] = int(l[0]) - 1970
         l[1] = int(l[1]) - 1
         l[2] = int(l[2]) - 1
-        l[3] = int(l[3]) - 8
         zh = ['年前', '月前', '日前', '小时前', '分钟前', '秒前']
         for i, e in enumerate(l):
             n = int(e)
