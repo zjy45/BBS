@@ -67,6 +67,16 @@
                    'Bitstream Vera Sans Mono', 'Menlo', 'Microsoft Yahei', monospace;
   }
 
+  .CodeMirror {
+      font-family: 'Consolas', 'Panic Sans', 'DejaVu Sans Mono',
+               'Bitstream Vera Sans Mono', 'Menlo', 'Microsoft Yahei', monospace;
+}
+
+  .user-image {
+      width: 48px;
+      height: 48px;
+  }
+
   a:link, a:visited, a:active {
       color: #778087;
       text-decoration: none;
