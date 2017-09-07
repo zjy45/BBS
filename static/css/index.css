@@ -6,7 +6,7 @@
   body {
       padding: 0px;
       margin: 0px;
-      background-color: #e2e2e2 !important; 
+      background-color: #e2e2e2;
       font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
   }
 
@@ -349,8 +349,9 @@
 
   #Bottom {
       position: fixed;
-      bottom: 80px;
-      height: 40px;
+      bottom: 0px;
+      height: 15%;
+      width: 100%;
       border-top: 1px solid rgba(0, 0, 0, 0.22);
       background-color: #fff;
       text-align: center;
