@@ -107,8 +107,7 @@
                 </div>
                 <div class="cell">
                     <form method="post" action="{{ url_for('reply.add') }}">
-                        <textarea name="content" maxlength="10000" class="mll" id="reply_content" style="overflow: hidden; word-wrap: break-word; resize: none; height: 112px;">
-                        </textarea>
+                        <textarea name="content" maxlength="10000" class="mll" id="reply_content" style="overflow: hidden; word-wrap: break-word; resize: none; height: 112px;"></textarea>
                         <div class="sep10"></div>
                         <input type="hidden" name="topic_id" value="{{ topic.id }}">
                         <input type="submit" value="回复" class="super normal button">
