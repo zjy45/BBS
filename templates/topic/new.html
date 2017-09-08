@@ -16,35 +16,36 @@
 			发布话题
 		</div>
 	    <form method="post" action="{{ url_for('.add') }}">
-
-	    <div class="cell">
-	        主题标题
-	    </div>
-	    <div class="cell" style="padding: 0px; background-color: #fff;"><textarea class="msl" rows="1" maxlength="120" id="topic_title" name="title" autofocus="autofocus" placeholder="请输入标题"></textarea></div>
-		<div class="cell">
-			<span>选择版块：</span>
-			<select name="board_id" style="width: 300px; font-size: 14px;" id="nodes" required>
-				<option value="">请选择</option>
-					{% for b in bs %}
-					<option value="{{ b.id }}">{{ b.title }}</option>
-					{% endfor %}
-			</select>
-		</div>
-		<div class="cell">
-	        正文
-	    </div>
-	    <div style="text-align: left; border-bottom: 1px solid #e2e2e2; font-size: 14px; line-height: 120%;">
-			<textarea maxlength="20000" class="msl" id="ed" id="editor" name="title" autofocus="autofocus" placeholder="请输入正文"></textarea>
-			<!--<textarea style="visibility: hidden;" maxlength="20000" id="editor" name="content">-->
-			<!--</textarea>-->
-		</div>
-	    <div class="cell">
-
-			<div class="cell">
-		        <button class="super normal button">&nbsp;发布主题</button>
+		    <div class="cell">
+		        主题标题
 		    </div>
-		</div>
-	</form>
+		    <div class="cell" style="padding: 0px; background-color: #fff;">
+				<textarea class="msl" rows="1" maxlength="120" id="topic_title" name="title" autofocus="autofocus" placeholder="请输入标题"></textarea>
+				/div>
+			<div class="cell">
+				<span>选择版块：</span>
+				<select name="board_id" style="width: 300px; font-size: 14px;" id="nodes" required>
+					<option value="">请选择</option>
+						{% for b in bs %}
+						<option value="{{ b.id }}">{{ b.title }}</option>
+						{% endfor %}
+				</select>
+			</div>
+			<div class="cell">content
+		        正文
+		    </div>
+		    <div style="text-align: left; border-bottom: 1px solid #e2e2e2; font-size: 14px; line-height: 120%;">
+				<textarea maxlength="20000" class="msl" id="ed" id="editor" name="content" autofocus="autofocus" placeholder="请输入正文"></textarea>
+				<!--<textarea style="visibility: hidden;" maxlength="20000" id="editor" name="content">-->
+				<!--</textarea>-->
+			</div>
+		    <div class="cell">
+
+				<div class="cell">
+			        <button class="super normal button">&nbsp;发布主题</button>
+			    </div>
+			</div>
+		</form>
 
             </div>
 
