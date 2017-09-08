@@ -21,7 +21,7 @@
             </div>
             <a href="{{url_for('.index')}}">BBC</a> <span class="chevron">&nbsp;›&nbsp;</span> <a href="/topic?board_id={{ topic.board().id }}">{{ topic.board().title }}</a>
             <div class="sep10"></div>
-            <h1>{{ topic.title }}</h1>
+            <h1>{{ topic.title }}{{ topic.content }}</h1>
             &nbsp;
             <small class="gray"><a href="{{url_for('.user', id=topic.user().id)}}">{{ topic.user().username }}</a> · {{topic.since_u()}} · {{ topic.views }} 次浏览</small>
             {%if topic.user().id == u.id%}
