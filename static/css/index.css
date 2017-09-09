@@ -358,7 +358,7 @@
   }
 
   #Bottom {
-      position: fixed;
+      position: relative;
       bottom: 0px;
       height: 15%;
       width: 100%;
