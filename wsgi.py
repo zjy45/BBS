@@ -11,9 +11,9 @@ application = app.app
 
 """
 建立一个软连接
-ln -s /root/var/www/BBS/BBS.conf /etc/supervisor/conf.d/BBS.conf
+ln -s /var/www/BBS/BBS/BBS.conf /etc/supervisor/conf.d/BBS.conf
 
-ln -s /root/var/www/BBS/BBS.nginx /etc/nginx/sites-enabled/BBS
+ln -s /var/www/BBS/BBS/BBS.nginx /etc/nginx/sites-enabled/BBS
 
 
 
@@ -21,7 +21,7 @@ ln -s /root/var/www/BBS/BBS.nginx /etc/nginx/sites-enabled/BBS
 
 [program:BBS]
 command=/usr/local/bin/gunicorn wsgi -c gunicorn.config.py
-directory=/root/var/www/BBS
+directory=/root/var/www/BBS/BBS
 autostart=true
 autorestart=true
 
